@@ -107,7 +107,7 @@ const Signup = () => {
           <div className="bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl border border-white border-opacity-20 overflow-hidden">
             <div className="flex flex-col lg:flex-row min-h-[600px]">
               {/* Left Side - Image */}
-              <div className="lg:w-1/2 relative">
+              <div className="lg:w-1/2 relative ">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 opacity-80"></div>
                 <img
                   src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center"
@@ -146,7 +146,7 @@ const Signup = () => {
               </div>
 
               {/* Right Side - Form */}
-              <div className="lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+              <div className="lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center ">
                 {/* Form Header */}
                 <div className="text-center lg:text-left mb-6">
                   {/* Mobile Logo - Only visible on small screens */}
