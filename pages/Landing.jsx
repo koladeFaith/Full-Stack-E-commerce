@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <div className="min-h-screen flex items-center justify-center overflow-hidden relative pt-4">
@@ -164,7 +165,9 @@ const Landing = () => {
           className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in"
           style={{ animationDelay: "0.6s" }}>
           <button className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-3 rounded-2xl text-lg font-semibold shadow-2xl hover:shadow-3xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center space-x-3 group">
-            <span>Get Started</span>
+            <Link to="/signup">
+              <span className="text-white">Get Started</span>
+            </Link>
             <svg
               className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
               fill="none"
@@ -190,7 +193,9 @@ const Landing = () => {
                 strokeWidth="2"
                 d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
             </svg>
-            <span>Sign In</span>
+            <Link to="/signin">
+              <span className="text-white">Sign In</span>
+            </Link>
           </button>
         </div>
 

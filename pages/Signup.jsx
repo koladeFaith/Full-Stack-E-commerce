@@ -76,12 +76,12 @@
 
 // export default Signup;
 import React from "react";
-
+import { Link } from "react-router-dom";
 const Signup = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-300 opacity-90"></div>
 
       {/* Floating Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -146,11 +146,11 @@ const Signup = () => {
               </div>
 
               {/* Right Side - Form */}
-              <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center bg-slate-50 bg-opacity-90">
+              <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center bg-slate-300 bg-opacity-90">
                 {/* Form Header */}
                 <div className="text-center lg:text-left mb-6">
                   {/* Mobile Logo - Only visible on small screens */}
-                  <div className="flex items-center justify-center lg:hidden space-x-3 mb-4">
+                  <div className="flex items-center justify-center lg:hidden space-x-3 mb-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
                       <svg
                         className="w-6 h-6 text-teal-700"
@@ -164,12 +164,12 @@ const Signup = () => {
                           d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                       </svg>
                     </div>
-                    <h1 className="text-xl font-bold text-teal-500 drop-shadow-lg">
+                    <h1 className="text-xl font-bold text-[#4facfe] drop-shadow-lg">
                       Luxora
                     </h1>
                   </div>
 
-                  <h2 className="text-[27px] lg:text-[35px] font-bold text-indigo-700 mb-2">
+                  <h2 className="text-[27px] lg:text-[35px] font-bold text-indigo-700 mb-1">
                     Create Your Account
                   </h2>
                   <p className="text-indigo-700 text-sm">
@@ -376,11 +376,11 @@ const Signup = () => {
                   <div className="text-center">
                     <p className="text-indigo-700 text-opacity-80 text-sm">
                       Already have an account?{" "}
-                      <a
-                        href="#"
-                        className="text-purple-700 hover:text-white font-semibold underline transition-colors duration-200">
-                        Sign In
-                      </a>
+                        <Link
+                          to="/signin"
+                          className="text-purple-700 hover:text-purple-900 font-semibold underline transition-colors duration-200">
+                          Sign Up
+                        </Link>
                     </p>
                   </div>
 
@@ -398,7 +398,7 @@ const Signup = () => {
                     </div>
 
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           viewBox="0 0 24 24"
@@ -423,7 +423,7 @@ const Signup = () => {
                         <span className="text-xs">Google</span>
                       </button>
 
-                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           fill="currentColor"
