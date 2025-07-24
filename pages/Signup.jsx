@@ -107,7 +107,7 @@ const Signup = () => {
           <div className="bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl border border-white border-opacity-20 overflow-hidden">
             <div className="flex flex-col lg:flex-row min-h-[600px]">
               {/* Left Side - Image */}
-              <div className="lg:w-1/2 relative ">
+              <div className="hidden md:block lg:w-1/2 relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 opacity-80"></div>
                 <img
                   src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center"
@@ -146,14 +146,14 @@ const Signup = () => {
               </div>
 
               {/* Right Side - Form */}
-              <div className="lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center ">
+              <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center bg-slate-50 bg-opacity-90">
                 {/* Form Header */}
                 <div className="text-center lg:text-left mb-6">
                   {/* Mobile Logo - Only visible on small screens */}
                   <div className="flex items-center justify-center lg:hidden space-x-3 mb-4">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="w-6 h-6 text-teal-700"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -164,15 +164,15 @@ const Signup = () => {
                           d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                       </svg>
                     </div>
-                    <h1 className="text-xl font-bold text-white drop-shadow-lg">
+                    <h1 className="text-xl font-bold text-teal-500 drop-shadow-lg">
                       Luxora
                     </h1>
                   </div>
 
-                  <h2 className="text-xl lg:text-2xl font-semibold text-white mb-2">
+                  <h2 className="text-[27px] lg:text-[35px] font-bold text-indigo-700 mb-2">
                     Create Your Account
                   </h2>
-                  <p className="text-white text-opacity-80 text-sm">
+                  <p className="text-indigo-700 text-sm">
                     Start your premium shopping journey
                   </p>
                 </div>
@@ -182,7 +182,7 @@ const Signup = () => {
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-white text-sm font-medium mb-1">
+                      <label className="block text-purple-700 text-sm font-medium mb-1">
                         First Name
                       </label>
                       <div className="relative">
@@ -199,14 +199,14 @@ const Signup = () => {
                         </svg>
                         <input
                           type="text"
-                          className="w-full pl-10 pr-3 py-2.5 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="John"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-white text-sm font-medium mb-1">
+                      <label className="block text-purple-700 text-sm font-medium mb-1">
                         Last Name
                       </label>
                       <div className="relative">
@@ -223,7 +223,7 @@ const Signup = () => {
                         </svg>
                         <input
                           type="text"
-                          className="w-full pl-10 pr-3 py-2.5 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="Doe"
                         />
                       </div>
@@ -232,7 +232,7 @@ const Signup = () => {
 
                   {/* Email Field */}
                   <div>
-                    <label className="block text-white text-sm font-medium mb-1">
+                    <label className="block text-purple-700 text-sm font-medium mb-1">
                       Email Address
                     </label>
                     <div className="relative">
@@ -249,7 +249,7 @@ const Signup = () => {
                       </svg>
                       <input
                         type="email"
-                        className="w-full pl-10 pr-3 py-2.5 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                        className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -258,7 +258,7 @@ const Signup = () => {
                   {/* Password Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-white text-sm font-medium mb-1">
+                      <label className="block text-purple-700 text-sm font-medium mb-1">
                         Password
                       </label>
                       <div className="relative">
@@ -275,7 +275,7 @@ const Signup = () => {
                         </svg>
                         <input
                           type="password"
-                          className="w-full pl-10 pr-10 py-2.5 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
@@ -300,7 +300,7 @@ const Signup = () => {
                     </div>
 
                     <div>
-                      <label className="block text-white text-sm font-medium mb-1">
+                      <label className="block text-purple-700 text-sm font-medium mb-1">
                         Confirm Password
                       </label>
                       <div className="relative">
@@ -317,7 +317,7 @@ const Signup = () => {
                         </svg>
                         <input
                           type="password"
-                          className="w-full pl-10 pr-10 py-2.5 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
@@ -348,19 +348,8 @@ const Signup = () => {
                       type="checkbox"
                       className="mt-1 w-4 h-4 text-purple-600 bg-white bg-opacity-20 border-white border-opacity-30 rounded focus:ring-purple-500"
                     />
-                    <label className="text-white text-opacity-80 text-xs leading-relaxed">
-                      I agree to the{" "}
-                      <a
-                        href="#"
-                        className="text-purple-200 hover:text-white underline transition-colors duration-200">
-                        Terms of Service
-                      </a>{" "}
-                      and{" "}
-                      <a
-                        href="#"
-                        className="text-purple-200 hover:text-white underline transition-colors duration-200">
-                        Privacy Policy
-                      </a>
+                    <label className="text-indigo-700 text-opacity-80 text-[12px] leading-relaxed">
+                      Privacy Policy Terms of Service I agree to the end{" "}
                     </label>
                   </div>
 
@@ -385,11 +374,11 @@ const Signup = () => {
                 <div className="mt-6 space-y-4">
                   {/* Sign In Link */}
                   <div className="text-center">
-                    <p className="text-white text-opacity-80 text-sm">
+                    <p className="text-indigo-700 text-opacity-80 text-sm">
                       Already have an account?{" "}
                       <a
                         href="#"
-                        className="text-purple-200 hover:text-white font-semibold underline transition-colors duration-200">
+                        className="text-purple-700 hover:text-white font-semibold underline transition-colors duration-200">
                         Sign In
                       </a>
                     </p>
@@ -402,14 +391,14 @@ const Signup = () => {
                         <div className="w-full border-t border-white border-opacity-30"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="px-3 bg-white bg-opacity-15 text-white text-opacity-80 text-xs">
+                        <span className="px-3 bg-indigo-900 bg-opacity-15 text-indigo-900 text-opacity-100 text-xs">
                           Or continue with
                         </span>
                       </div>
                     </div>
 
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      <button className="flex items-center justify-center px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           viewBox="0 0 24 24"
@@ -434,7 +423,7 @@ const Signup = () => {
                         <span className="text-xs">Google</span>
                       </button>
 
-                      <button className="flex items-center justify-center px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           fill="currentColor"
