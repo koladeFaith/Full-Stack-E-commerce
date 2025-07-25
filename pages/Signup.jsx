@@ -76,8 +76,10 @@
 
 // export default Signup;
 import React from "react";
+
 import { Link } from "react-router-dom";
 const Signup = () => {
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       {/* Animated gradient overlay */}
@@ -178,7 +180,7 @@ const Signup = () => {
                 </div>
 
                 {/* Signup Form */}
-                <div className="space-y-4">
+                <form action="/signup" method="POST" className="space-y-4">
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
@@ -201,6 +203,7 @@ const Signup = () => {
                           type="text"
                           className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="John"
+                          name="firstName"
                         />
                       </div>
                     </div>
@@ -225,6 +228,7 @@ const Signup = () => {
                           type="text"
                           className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="Doe"
+                          name="lastName"
                         />
                       </div>
                     </div>
@@ -251,6 +255,7 @@ const Signup = () => {
                         type="email"
                         className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                         placeholder="john@example.com"
+                        name="email"
                       />
                     </div>
                   </div>
@@ -277,6 +282,7 @@ const Signup = () => {
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
+                          name="password"
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -319,6 +325,7 @@ const Signup = () => {
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
+                          name="forPassword"
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -354,7 +361,7 @@ const Signup = () => {
                   </div>
 
                   {/* Submit Button */}
-                  <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2">
+                  <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2" type="submit">
                     <span>Create Account</span>
                     <svg
                       className="w-4 h-4"
@@ -368,7 +375,7 @@ const Signup = () => {
                         d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
                   </button>
-                </div>
+                </form>
 
                 {/* Sign In Link & Social Options */}
                 <div className="mt-6 space-y-4">
@@ -376,11 +383,11 @@ const Signup = () => {
                   <div className="text-center">
                     <p className="text-indigo-700 text-opacity-80 text-sm">
                       Already have an account?{" "}
-                        <Link
-                          to="/signin"
-                          className="text-purple-700 hover:text-purple-900 font-semibold underline transition-colors duration-200">
-                          Sign Up
-                        </Link>
+                      <Link
+                        to="/signin"
+                        className="text-purple-700 hover:text-purple-900 font-semibold underline transition-colors duration-200">
+                        Sign Up
+                      </Link>
                     </p>
                   </div>
 
