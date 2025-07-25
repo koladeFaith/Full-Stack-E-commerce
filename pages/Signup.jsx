@@ -76,10 +76,39 @@
 
 // export default Signup;
 import React from "react";
-
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Signup = () => {
-  
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:6300/api/signup",
+        formData
+      );
+      console.log(response.data.message);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error("Error: " + error.response.data.message);
+      } else {
+        console.error("An unexpected error occurred: " + error.message);
+      }
+    }
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       {/* Animated gradient overlay */}
@@ -180,7 +209,7 @@ const Signup = () => {
                 </div>
 
                 {/* Signup Form */}
-                <form action="/signup" method="POST" className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
@@ -204,6 +233,7 @@ const Signup = () => {
                           className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="John"
                           name="firstName"
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -229,6 +259,7 @@ const Signup = () => {
                           className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="Doe"
                           name="lastName"
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -256,6 +287,7 @@ const Signup = () => {
                         className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                         placeholder="john@example.com"
                         name="email"
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -283,6 +315,7 @@ const Signup = () => {
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
                           name="password"
+                          onChange={handleChange}
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -361,7 +394,9 @@ const Signup = () => {
                   </div>
 
                   {/* Submit Button */}
-                  <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2" type="submit">
+                  <button
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
+                    type="submit">
                     <span>Create Account</span>
                     <svg
                       className="w-4 h-4"
