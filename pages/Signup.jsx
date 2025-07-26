@@ -79,6 +79,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "sonner";
 const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -90,6 +91,15 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    if (
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.email.trim() ||
+      !formData.password.trim()
+    ) {
+      toast.error("Pls, all fields are required");
+      return;
+    }
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -97,6 +107,7 @@ const Signup = () => {
         formData
       );
       console.log(response.data.message);
+      toast.success(response.data.message);
     } catch (error) {
       if (
         error.response &&
@@ -104,8 +115,10 @@ const Signup = () => {
         error.response.data.message
       ) {
         console.error("Error: " + error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
         console.error("An unexpected error occurred: " + error.message);
+        toast.error(error.message);
       }
     }
   };
