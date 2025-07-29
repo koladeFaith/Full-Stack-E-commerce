@@ -77,10 +77,11 @@
 // export default Signup;
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -108,6 +109,9 @@ const Signup = () => {
       );
       console.log(response.data.message);
       toast.success(response.data.message);
+      setTimeout(() => {
+        navigate("/signin");
+      }, 2000);
     } catch (error) {
       if (
         error.response &&
