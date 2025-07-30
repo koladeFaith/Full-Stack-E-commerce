@@ -1,7 +1,44 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { toast } from "sonner";
+import axios from "axios";
 const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    // if (!formData.email.trim() || !formData.password.trim()) {
+    //   toast.error("Pls, all fields are required");
+    //   return;
+    // }
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://e-commerce-node-0pm7.onrender.com/api/signin",
+        formData
+      );
+      console.log(response.data.message);
+      toast.success(response.data.message);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error("Error: " + error.response.data.message);
+        toast.error(error.response.data.message);
+      } else {
+        console.error("An unexpected error occurred: " + error.message);
+        toast.error(error.message);
+      }
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
@@ -102,7 +139,7 @@ const Signin = () => {
                   </div>
 
                   {/* Signin Form */}
-                  <div className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Email Field */}
                     <div>
                       <label className="block text-purple-700 text-sm font-medium mb-1">
@@ -124,6 +161,7 @@ const Signin = () => {
                           type="email"
                           className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="john@example.com"
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -149,6 +187,7 @@ const Signin = () => {
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder="••••••••"
+                          onChange={handleChange}
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -190,7 +229,9 @@ const Signin = () => {
                     </div>
 
                     {/* Submit Button */}
-                    <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <button
+                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
+                      type="submit">
                       <span>Sign In</span>
                       <svg
                         className="w-4 h-4"
@@ -204,7 +245,7 @@ const Signin = () => {
                           d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                       </svg>
                     </button>
-                  </div>
+                  </form>
 
                   {/* Sign Up Link & Social Options */}
                   <div className="mt-6 space-y-4">

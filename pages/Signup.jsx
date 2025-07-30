@@ -104,7 +104,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:6300/api/signup",
+        "https://e-commerce-node-0pm7.onrender.com/api/signup",
         formData
       );
       console.log(response.data.message);
