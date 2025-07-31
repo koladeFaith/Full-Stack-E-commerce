@@ -1,135 +1,67 @@
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
-// import React from "react";
-// const Signup = () => {
-//   const formik = useFormik({
-//     initialValues: {
-//       firstName: "",
-//       lastName: "",
-//       email: "",
-//       password: "",
-//     },
-//     validationSchema: Yup.object({
-//       firstName: Yup.string().required("First name is required"),
-//       lastName: Yup.string().required("Last name is required"),
-//       email: Yup.string().email("Invalid Email").required("Email is required"),
-//       password: Yup.string()
-//         .min(8, "Password must be 8 characters or more")
-//         .required("Password is required"),
-//     }),
-//   });
-//   console.log(formik.touched);
-
-//   return (
-//     <>
-//       <form action="" onSubmit={formik.handleSubmit}>
-//         <br />
-//         <input
-//           type="text"
-//           placeholder="First name"
-//           name="firstName"
-//           onChange={formik.handleChange}
-//           onBlur={formik.handleBlur}
-//         />{" "}
-//         {formik.touched.firstName ? (
-//           <span className="text-danger">{formik.errors.firstName}</span>
-//         ) : null}
-//         <br /> <br />
-//         <input
-//           type="text"
-//           placeholder="Last name"
-//           name="lastName"
-//           onChange={formik.handleChange}
-//           onBlur={formik.handleBlur}
-//         />{" "}
-//         {formik.touched.lastName ? (
-//           <span className="text-danger">{formik.errors.lastName}</span>
-//         ) : null}
-//         <br /> <br />
-//         <input
-//           type="text"
-//           placeholder="Email"
-//           name="email"
-//           onChange={formik.handleChange}
-//           onBlur={formik.handleBlur}
-//         />{" "}
-//         {formik.touched.email ? (
-//           <span className="text-danger">{formik.errors.email}</span>
-//         ) : null}
-//         <br /> <br />
-//         <input
-//           type="text"
-//           placeholder="Password"
-//           name="password"
-//           onChange={formik.handleChange}
-//           onBlur={formik.handleBlur}
-//         />{" "}
-//         {formik.touched.password ? (
-//           <span className="text-danger">{formik.errors.password}</span>
-//         ) : null}
-//         <br /> <br />
-//         <button type="submit">Submit</button>
-//       </form>
-//     </>
-//   );
-// };
-
-// export default Signup;
 import React from "react";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = async (e) => {
-    if (
-      !formData.firstName.trim() ||
-      !formData.lastName.trim() ||
-      !formData.email.trim() ||
-      !formData.password.trim()
-    ) {
-      toast.error("Pls, all fields are required");
-      return;
-    }
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://e-commerce-node-0pm7.onrender.com/api/signup",
-        formData
-      );
-      console.log(response.data.message);
-      toast.success(response.data.message);
-      setTimeout(() => {
-        navigate("/signin");
-      }, 2000);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        console.error("Error: " + error.response.data.message);
-        toast.error(error.response.data.message);
-      } else {
-        console.error("An unexpected error occurred: " + error.message);
-        toast.error(error.message);
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required("First Name is required"),
+      lastName: Yup.string().required("Last Name is required"),
+      email: Yup.string()
+        .required("Email Address is required")
+        .email("Invalid Email"),
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "Paswword must be 6 characters or more"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Confirm Password is required"),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const response = await axios.post(
+          "https://e-commerce-node-0pm7.onrender.com/user/signup",
+          values
+        );
+
+        console.log(response.data.message);
+        toast.success(response.data.message);
+        resetForm();
+        setTimeout(() => {
+          navigate("/signin");
+        }, 2000);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          console.error("Error: " + error.response.data.message);
+          toast.error(error.response.data.message);
+        } else {
+          console.error("An unexpected error occurred: " + error.message);
+          toast.error(error.message);
+        }
       }
-    }
-  };
+    },
+  });
+  console.log(formik.touched);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-500">
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-300 opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-purple-500 opacity-90"></div>
 
       {/* Floating Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -153,7 +85,7 @@ const Signup = () => {
         <div className="w-full max-w-6xl mx-auto">
           {/* Two Column Layout */}
           <div className="bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl border border-white border-opacity-20 overflow-hidden">
-            <div className="flex flex-col lg:flex-row min-h-[600px]">
+            <div className="flex flex-col lg:flex-row min-h-[680px]">
               {/* Left Side - Image */}
               <div className="hidden md:block lg:w-1/2 relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 opacity-80"></div>
@@ -196,7 +128,7 @@ const Signup = () => {
               {/* Right Side - Form */}
               <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center bg-slate-300 bg-opacity-90">
                 {/* Form Header */}
-                <div className="text-center lg:text-left mb-6">
+                <div className="text-center lg:text-left mb-2">
                   {/* Mobile Logo - Only visible on small screens */}
                   <div className="flex items-center justify-center lg:hidden space-x-3 mb-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
@@ -226,33 +158,31 @@ const Signup = () => {
                 </div>
 
                 {/* Signup Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form
+                  onSubmit={formik.handleSubmit}
+                  className="space-y-2 lg:space-y-1">
                   {/* Name Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2  md:gap-2">
                     <div>
                       <label className="block text-purple-700 text-sm font-medium mb-1">
                         First Name
                       </label>
                       <div className="relative">
-                        <svg
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
                         <input
                           type="text"
-                          className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="John"
+                          className="w-full pl-5 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          placeholder=""
                           name="firstName"
-                          onChange={handleChange}
+                          value={formik.values.firstName}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </div>
+                      {formik.touched.firstName ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.firstName}
+                        </span>
+                      ) : null}
                     </div>
 
                     <div>
@@ -260,25 +190,22 @@ const Signup = () => {
                         Last Name
                       </label>
                       <div className="relative">
-                        <svg
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
                         <input
                           type="text"
-                          className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="Doe"
+                          className="w-full pl-5 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          placeholder=""
                           name="lastName"
-                          onChange={handleChange}
+                          value={formik.values.lastName}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </div>
+
+                      {formik.touched.lastName ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.lastName}
+                        </span>
+                      ) : null}
                     </div>
                   </div>
 
@@ -288,29 +215,25 @@ const Signup = () => {
                       Email Address
                     </label>
                     <div className="relative">
-                      <svg
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
-                      </svg>
                       <input
                         type="email"
-                        className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                        placeholder="john@example.com"
+                        className="w-full pl-5 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                        placeholder=""
                         name="email"
-                        onChange={handleChange}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       />
                     </div>
+                    {formik.touched.email ? (
+                      <span className="text-red-500 text-[15px]">
+                        {formik.errors.email}
+                      </span>
+                    ) : null}
                   </div>
 
                   {/* Password Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-2 ">
                     <div>
                       <label className="block text-purple-700 text-sm font-medium mb-1">
                         Password
@@ -330,9 +253,11 @@ const Signup = () => {
                         <input
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="••••••••"
+                          placeholder=""
                           name="password"
-                          onChange={handleChange}
+                          value={formik.values.password}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -353,6 +278,11 @@ const Signup = () => {
                           </svg>
                         </button>
                       </div>
+                      {formik.touched.password ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.password}
+                        </span>
+                      ) : null}
                     </div>
 
                     <div>
@@ -374,8 +304,11 @@ const Signup = () => {
                         <input
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="••••••••"
-                          name="forPassword"
+                          placeholder=""
+                          name="confirmPassword"
+                          value={formik.values.confirmPassword}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
@@ -396,14 +329,19 @@ const Signup = () => {
                           </svg>
                         </button>
                       </div>
+                      {formik.touched.confirmPassword ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.confirmPassword}
+                        </span>
+                      ) : null}
                     </div>
                   </div>
 
                   {/* Terms and Conditions */}
-                  <div className="flex items-start space-x-3">
+                  <div className="flex items-start my-2 space-x-3">
                     <input
                       type="checkbox"
-                      className="mt-1 w-4 h-4 text-purple-600 bg-white bg-opacity-20 border-white border-opacity-30 rounded focus:ring-purple-500"
+                      className=" w-4 h-4 text-purple-600 bg-white bg-opacity-20 border-white border-opacity-30 rounded focus:ring-purple-500"
                     />
                     <label className="text-indigo-700 text-opacity-80 text-[12px] leading-relaxed">
                       Privacy Policy Terms of Service I agree to the end{" "}
@@ -412,7 +350,7 @@ const Signup = () => {
 
                   {/* Submit Button */}
                   <button
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-96 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center space-x-2"
                     type="submit">
                     <span>Create Account</span>
                     <svg
@@ -438,7 +376,7 @@ const Signup = () => {
                       <Link
                         to="/signin"
                         className="text-purple-700 hover:text-purple-900 font-semibold underline transition-colors duration-200">
-                        Sign Up
+                        Sign In
                       </Link>
                     </p>
                   </div>
@@ -457,7 +395,7 @@ const Signup = () => {
                     </div>
 
                     <div className="mt-3 grid grid-cols-2 gap-3">
-                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-80 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           viewBox="0 0 24 24"
@@ -482,7 +420,7 @@ const Signup = () => {
                         <span className="text-xs">Google</span>
                       </button>
 
-                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                      <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-80 transition-all duration-300">
                         <svg
                           className="w-4 h-4 mr-2"
                           fill="currentColor"

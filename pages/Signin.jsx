@@ -1,49 +1,58 @@
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { jwtDecode } from "jwt-decode";
 const Signin = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = async (e) => {
-    // if (!formData.email.trim() || !formData.password.trim()) {
-    //   toast.error("Pls, all fields are required");
-    //   return;
-    // }
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://e-commerce-node-0pm7.onrender.com/api/signin",
-        formData
-      );
-      console.log(response.data.message);
-      toast.success(response.data.message);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        console.error("Error: " + error.response.data.message);
-        toast.error(error.response.data.message);
-      } else {
-        console.error("An unexpected error occurred: " + error.message);
-        toast.error(error.message);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid Email")
+        .required("Email Address is required"),
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "Paswword must be 6 characters or more"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(
+          "https://e-commerce-node-0pm7.onrender.com/user/signin",
+          values
+        );
+        console.log(response);
+        const decodedToken = jwtDecode(response.data.token);
+        console.log(decodedToken);
+
+        console.log(response.data.message);
+        toast.success(response.data.message);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          console.error("Error: " + error.response.data.message);
+          toast.error(error.response.data.message);
+        } else {
+          console.error("An unexpected error occurred: " + error.message);
+          toast.error(error.message);
+        }
       }
-    }
-  };
+    },
+  });
+  console.log(formik.touched);
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-500">
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-300 opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-purple-500 opacity-90"></div>
 
         {/* Floating Background Shapes */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -67,7 +76,7 @@ const Signin = () => {
           <div className="w-full max-w-6xl mx-auto">
             {/* Two Column Layout */}
             <div className="bg-white bg-opacity-15 backdrop-filter backdrop-blur-lg rounded-3xl shadow-2xl border border-white border-opacity-20 overflow-hidden">
-              <div className="flex flex-col lg:flex-row min-h-[600px]">
+              <div className="flex flex-col lg:flex-row min-h-[600px] ">
                 {/* Left Side - Image */}
                 <div className="hidden md:block lg:w-1/2 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 opacity-80"></div>
@@ -139,31 +148,28 @@ const Signin = () => {
                   </div>
 
                   {/* Signin Form */}
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={formik.handleSubmit} className="space-y-3">
                     {/* Email Field */}
                     <div>
                       <label className="block text-purple-700 text-sm font-medium mb-1">
                         Email Address
                       </label>
                       <div className="relative">
-                        <svg
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
-                        </svg>
                         <input
                           type="email"
-                          className="w-full pl-10 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="john@example.com"
-                          onChange={handleChange}
+                          className="w-full pl-5 pr-3 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
+                          placeholder=""
+                          name="email"
+                          value={formik.values.email}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </div>
+                      {formik.touched.email ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.email}
+                        </span>
+                      ) : null}
                     </div>
 
                     {/* Password Field */}
@@ -186,9 +192,13 @@ const Signin = () => {
                         <input
                           type="password"
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
-                          placeholder="••••••••"
-                          onChange={handleChange}
+                          placeholder=""
+                          name="password"
+                          value={formik.values.password}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
+
                         <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
                             className="w-4 h-4"
@@ -208,6 +218,11 @@ const Signin = () => {
                           </svg>
                         </button>
                       </div>
+                      {formik.touched.password ? (
+                        <span className="text-red-500 text-[15px]">
+                          {formik.errors.password}
+                        </span>
+                      ) : null}
                     </div>
 
                     {/* Remember Me & Forgot Password */}
@@ -230,7 +245,7 @@ const Signin = () => {
 
                     {/* Submit Button */}
                     <button
-                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
+                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-96 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center space-x-2"
                       type="submit">
                       <span>Sign In</span>
                       <svg
@@ -275,7 +290,7 @@ const Signin = () => {
                       </div>
 
                       <div className="mt-3 grid grid-cols-2 gap-3">
-                        <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                        <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-80 transition-all duration-300">
                           <svg
                             className="w-4 h-4 mr-2"
                             viewBox="0 0 24 24"
@@ -300,7 +315,7 @@ const Signin = () => {
                           <span className="text-xs">Google</span>
                         </button>
 
-                        <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-30 transition-all duration-300">
+                        <button className="flex items-center justify-center px-3 py-2 bg-pink-700 bg-opacity-70 border border-white border-opacity-30 rounded-lg text-white hover:bg-opacity-80 transition-all duration-300">
                           <svg
                             className="w-4 h-4 mr-2"
                             fill="currentColor"
