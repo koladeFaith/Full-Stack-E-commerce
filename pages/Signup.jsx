@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Signup = () => {
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+  const toggleConfirmPassword = () => {
+    setShowConfirmPassword((prev) => !prev);
+  };
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -251,7 +259,7 @@ const Signup = () => {
                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
                         <input
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder=""
                           name="password"
@@ -259,23 +267,11 @@ const Signup = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
-                        <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                          </svg>
+                        <button
+                          onClick={togglePassword}
+                          type="button"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
+                          {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
                       </div>
                       {formik.touched.password ? (
@@ -302,7 +298,7 @@ const Signup = () => {
                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
                         <input
-                          type="password"
+                          type={showConfirmPassword ? "text" : "password"}
                           className="w-full pl-10 pr-10 py-2.5 bg-purple-700 bg-opacity-30 border border-white border-opacity-30 rounded-lg text-white text-sm placeholder-white placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:bg-opacity-30 transition-all duration-300"
                           placeholder=""
                           name="confirmPassword"
@@ -310,23 +306,11 @@ const Signup = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
-                        <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                          </svg>
+                        <button
+                          type="button"
+                          onClick={toggleConfirmPassword}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
+                          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
                       </div>
                       {formik.touched.confirmPassword ? (
