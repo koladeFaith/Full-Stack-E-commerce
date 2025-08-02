@@ -123,11 +123,11 @@ const Signup = () => {
                       </h1>
                     </div>
                     <h2 className="text-2xl font-semibold mb-4 drop-shadow-lg">
-                      Welcome to Premium Shopping
+                      Welcome to your premium eBook destination.
                     </h2>
                     <p className="text-lg opacity-90 max-w-md mx-auto leading-relaxed">
-                      Join thousands of satisfied customers and discover a world
-                      of luxury products curated just for you.
+                      Experience the joy of reading with thousands of satisfied
+                      readers — only on Luxora, your home for curated e-books.
                     </p>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const Signup = () => {
                     Create Your Account
                   </h2>
                   <p className="text-indigo-700 text-sm pb-1">
-                    Start your premium shopping journey
+                    Start your premium reading journey
                   </p>
                 </div>
 

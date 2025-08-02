@@ -84,8 +84,8 @@ const Landing = () => {
             Premium E-commerce Platform
           </h2>
           <p className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
-            Discover a world of luxury and elegance. Luxora brings you carefully
-            curated premium products with an unmatched shopping experience.
+            Explore a refined digital library. Luxora delivers premium e-books
+            and a superior reading experience tailored just for you.
           </p>
         </div>
 
@@ -110,7 +110,8 @@ const Landing = () => {
               </div>
               <h3 className="text-white font-semibold mb-2">Premium Quality</h3>
               <p className="text-white/70 text-sm">
-                Handpicked luxury items with exceptional craftsmanship
+                Handpicked premium e-books, curated with care and crafted for
+                excellence
               </p>
             </div>
 
@@ -132,7 +133,8 @@ const Landing = () => {
               </div>
               <h3 className="text-white font-semibold mb-2">Fast Delivery</h3>
               <p className="text-white/70 text-sm">
-                Lightning-fast shipping to your doorstep worldwide
+                Instant access to your premium e-books — anytime, anywhere in
+                the world, for a reading experience.
               </p>
             </div>
 
