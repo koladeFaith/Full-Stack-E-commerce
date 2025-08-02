@@ -5,6 +5,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Signin = () => {
   const formik = useFormik({
     initialValues: {
@@ -47,6 +48,7 @@ const Signin = () => {
     },
   });
   console.log(formik.touched);
+  // const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -199,7 +201,9 @@ const Signin = () => {
                           onBlur={formik.handleBlur}
                         />
 
-                        <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
+                        <button
+                          onClick={passwordToggle}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-60 hover:text-opacity-100 transition-all duration-200">
                           <svg
                             className="w-4 h-4"
                             fill="none"

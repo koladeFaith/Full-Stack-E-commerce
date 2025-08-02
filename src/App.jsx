@@ -4,6 +4,7 @@ import Landing from "../pages/Landing";
 import Signin from "../pages/Signin";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <>
@@ -12,6 +13,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/navbar" element={<Navbar />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

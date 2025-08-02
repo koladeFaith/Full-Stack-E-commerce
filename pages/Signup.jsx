@@ -152,7 +152,7 @@ const Signup = () => {
                   <h2 className="text-[27px] lg:text-[35px] font-bold text-indigo-700 mb-1">
                     Create Your Account
                   </h2>
-                  <p className="text-indigo-700 text-sm">
+                  <p className="text-indigo-700 text-sm pb-1">
                     Start your premium shopping journey
                   </p>
                 </div>
