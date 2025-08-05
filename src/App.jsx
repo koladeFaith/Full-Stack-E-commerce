@@ -5,6 +5,7 @@ import Signin from "../pages/Signin";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import Navbar from "./components/Navbar";
+import Contact from "./components/Contact";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/navbar" element={<Navbar />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
