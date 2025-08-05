@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaList, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <nav className=" bg-purple-700 flex items-center justify-between gap-2 px-4 fixed top-0 left-0 w-full  shadow-md z-50 px-md-5  py-2">
@@ -9,7 +13,7 @@ const Navbar = () => {
         <div className=" flex items-center justify-center gap-3">
           <div className="md:hidden text-white text-[25px] mb-1">
             {" "}
-            <FaList />
+            <FaList onClick={toggleMenu} />
           </div>
           <div className=" animate-fade-in">
             <div className="flex items-center justify-center space-x-4 ">
@@ -39,6 +43,13 @@ const Navbar = () => {
           <FaShoppingCart className=" text-[25px]" />
           <FaUser className=" text-[25px]" />
         </div>
+        {isOpen && (
+          <div className="md:hidden bg-white px-6 py-4 space-y-4">
+            <li className="cursor-pointer">Home</li>
+            <li className="cursor-pointer">Categories</li>
+            <li className="cursor-pointer">About</li>
+          </div>
+        )}
       </nav>
     </>
   );
