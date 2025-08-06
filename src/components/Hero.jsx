@@ -5,12 +5,12 @@ function Hero() {
   return (
     <>
       <div
-        className="flex flex-col lg:flex-row items-center justify-between pt-[100px] md:pt-[150px] lg:pt-0"
+        className="flex flex-col lg:flex-row items-center justify-between pt-[100px] md:pt-[150px] lg:pt-0 "
         style={{
           background: "linear-gradient(90deg, #89f7fe 0%, #66a6ff 100%)",
         }}>
         {/* Left Side - Text with Unique Features */}
-        <div className="md:full lg:w-1/2 md:h-[400px] text-center md:text-left mb-6 space-y-6 px-md-0 px-4 relative w-full lg:h-auto">
+        <div className="md:full lg:w-1/2 md:h-[400px] z-[1]  text-center md:text-left mb-6 space-y-6 px-md-0 px-4 relative w-full lg:h-auto">
           {/* Tagline / Badge */}
           <div className="inline-block px-4 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full font-medium animate-pulse">
             #1 Premium eBook Marketplace
