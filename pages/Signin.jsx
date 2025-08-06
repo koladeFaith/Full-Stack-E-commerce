@@ -52,7 +52,6 @@ const Signin = () => {
     },
   });
   console.log(formik.touched);
-  // const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>

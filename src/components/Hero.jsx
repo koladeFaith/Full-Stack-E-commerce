@@ -10,7 +10,7 @@ function Hero() {
           background: "linear-gradient(90deg, #89f7fe 0%, #66a6ff 100%)",
         }}>
         {/* Left Side - Text with Unique Features */}
-        <div className="md:full lg:w-1/2 md:h-[400px] z-[1]  text-center md:text-left mb-6 space-y-6 px-md-0 px-4 relative w-full lg:h-auto">
+        <div className="md:full lg:w-1/2 md:h-[400px]  text-center md:text-left mb-6 space-y-6 px-md-0 px-4 relative w-full lg:h-auto overflow-hidden z-0">
           {/* Tagline / Badge */}
           <div className="inline-block px-4 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full font-medium animate-pulse">
             #1 Premium eBook Marketplace
@@ -18,7 +18,7 @@ function Hero() {
 
           {/* Animated Text Line (Marquee effect) */}
           <div className="overflow-hidden whitespace-nowrap">
-            <p className="text-purple-700 font-semibold text-sm animate-slide">
+            <p className="text-purple-700 font-semibold text-sm ">
               Curated Collections · Trusted Authors · Instant Access · Global
               Reach.
             </p>

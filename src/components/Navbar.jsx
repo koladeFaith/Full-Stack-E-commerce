@@ -48,7 +48,7 @@ const Navbar = () => {
         </div>
         {/* Side bar */}
         <div
-          className={`fixed top-0 left-0 h-full bg-blue-100 w-1/2 z-40 transform transition-transform duration-500 ease-in-out  ${
+          className={`fixed top-0 left-0 h-full bg-blue-100 w-1/2 z-99 transform transition-transform duration-500 ease-in-out  ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } md:hidden`}>
           <div className="flex items-center justify-between  px-6 py-4 bg-blue-200">
